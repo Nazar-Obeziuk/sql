@@ -1,0 +1,41 @@
+<div class="list">
+    <div class="col1">
+        <div class="input__group">
+            <input type="text" class="form__control" placeholder="Search by title" [(ngModel)]="title">
+            <div class="input__group_append">
+                <button (click)="searchTitle()" class="button__search">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="col2">
+        <h4>Tutorials List</h4>
+        <ul class="list__group">
+            @for (tutorial of tutorials; track $index) {
+                <li (click)="setActiveTutorial(tutorial, $index)" class="list__group_item" [class.active]="$index == currentIndex">{{ tutorial.title }}</li>
+            }
+        </ul>
+
+        <button (click)="removeAllTutorials()" class="button__deleteall">Remove All</button>
+    </div>
+    <div class="col3">
+        @if (currentTutorial) {
+            <h4>Tutorial</h4>
+            <div>
+                <label><strong>Title:</strong></label> {{ currentTutorial.title }}
+            </div>
+            <div>
+                <label><strong>Description:</strong></label> {{ currentTutorial.description }}
+            </div>
+            <div>
+                <label><strong>Status:</strong></label> {{ currentTutorial.published ? 'Published' : 'Pending' }}
+            </div>
+
+            <a class="edit" routerLink="/tutorials/{{ currentTutorial.id }}">Edit</a>
+        }
+
+        @if (!currentTutorial) {
+            <br>
+            <p>Please click on a Tutorial...</p>
+        }
+    </div>
+</div>

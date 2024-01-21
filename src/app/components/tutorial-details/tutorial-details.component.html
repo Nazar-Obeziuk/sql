@@ -1,0 +1,41 @@
+<div style="width: 400px; margin: auto">
+    @if (currentTutorial) {
+        <div>
+            <h4>Tutorial</h4>
+            <form>
+                <div class="form__group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form__control" id="title" required [(ngModel)]="currentTutorial.title" name="title">
+                </div>
+
+                <div class="form__group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form__control" id="description" required [(ngModel)]="currentTutorial.description" name="description"> 
+                </div>
+
+                <div class="form__group">
+                    <label><strong>Status</strong></label>
+                    {{ currentTutorial.published ? 'Published' : 'Pending' }}
+                </div>
+            </form>
+
+            @if (currentTutorial.published) {
+                <button (click)="updatePublished(false)" class="button__unpublish">UnPublish</button>
+            }
+            @if (!currentTutorial.published) {
+                <button (click)="updatePublished(true)" class="button__unpublish">Publish</button>
+            }
+
+            <button class="button__delete" (click)="deleteTutorial()">Delete</button>
+
+            <button (click)="updateTutorial()" type="submit">Update</button>
+
+            <p>{{ message }}</p>
+        </div>
+    }
+
+    @if (!currentTutorial) {
+        <br>
+        <p>Cannot access this Tutorial...</p>
+    }
+</div>
